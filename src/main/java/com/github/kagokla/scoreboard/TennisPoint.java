@@ -13,26 +13,26 @@ public enum TennisPoint {
     FORTY(3, "40"),
     ADVANTAGE(4, "Advantage");
 
-    private final int wonPoint;
-    private final String prettyWonPoint;
+    private final int gamePoint;
+    private final String prettyGamePoint;
 
-    TennisPoint(final int wonPoint, final String prettyWonPoint) {
-        this.wonPoint = wonPoint;
-        this.prettyWonPoint = prettyWonPoint;
+    TennisPoint(final int gamePoint, final String prettyGamePoint) {
+        this.gamePoint = gamePoint;
+        this.prettyGamePoint = prettyGamePoint;
     }
 
-    public static TennisPoint fromWonPoint(final int wonPoint) {
-        if (wonPoint < 0) {
+    public static TennisPoint fromGamePoint(final int gamePoint) {
+        if (gamePoint < 0) {
             throw new IllegalArgumentException("Negative value can not be scored when playing Tennis");
         }
         return Arrays.stream(values())
-                .filter(tennisPoint -> tennisPoint.wonPoint == wonPoint)
+                .filter(tennisPoint -> tennisPoint.gamePoint == gamePoint)
                 .findFirst()
                 .orElse(ADVANTAGE);
     }
 
     @Override
     public String toString() {
-        return prettyWonPoint;
+        return prettyGamePoint;
     }
 }

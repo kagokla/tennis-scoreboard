@@ -18,16 +18,16 @@ class TennisPointTest {
 
     @Test
     void shouldReturnEnumFromInteger() {
-        assertThat(TennisPoint.fromWonPoint(0)).isEqualTo(TennisPoint.ZERO);
-        assertThat(TennisPoint.fromWonPoint(1)).isEqualTo(TennisPoint.FIFTEEN);
-        assertThat(TennisPoint.fromWonPoint(2)).isEqualTo(TennisPoint.THIRTY);
-        assertThat(TennisPoint.fromWonPoint(3)).isEqualTo(TennisPoint.FORTY);
-        assertThat(TennisPoint.fromWonPoint(4)).isEqualTo(TennisPoint.ADVANTAGE);
-        assertThat(TennisPoint.fromWonPoint(Integer.MAX_VALUE)).isEqualTo(TennisPoint.ADVANTAGE);
+        assertThat(TennisPoint.fromGamePoint(0)).isEqualTo(TennisPoint.ZERO);
+        assertThat(TennisPoint.fromGamePoint(1)).isEqualTo(TennisPoint.FIFTEEN);
+        assertThat(TennisPoint.fromGamePoint(2)).isEqualTo(TennisPoint.THIRTY);
+        assertThat(TennisPoint.fromGamePoint(3)).isEqualTo(TennisPoint.FORTY);
+        assertThat(TennisPoint.fromGamePoint(4)).isEqualTo(TennisPoint.ADVANTAGE);
+        assertThat(TennisPoint.fromGamePoint(Integer.MAX_VALUE)).isEqualTo(TennisPoint.ADVANTAGE);
     }
 
     @Test
     void shouldThrowExceptionFromNegativeInteger() {
-        assertThatIllegalArgumentException().isThrownBy(() -> TennisPoint.fromWonPoint(Integer.MIN_VALUE));
+        assertThatIllegalArgumentException().isThrownBy(() -> TennisPoint.fromGamePoint(Integer.MIN_VALUE));
     }
 }
