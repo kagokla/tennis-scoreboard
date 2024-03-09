@@ -21,7 +21,7 @@ class PlayerTest {
     }
 
     @Test
-    void shouldFormatPlayerName() {
+    void shouldReturnStringRepresentation() {
         final var player = new Player("Yannick NOAH");
 
         assertThat(player).isNotNull().hasToString("Player Yannick NOAH");

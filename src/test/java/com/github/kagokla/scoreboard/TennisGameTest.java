@@ -15,8 +15,8 @@ class TennisGameTest {
 
     @BeforeEach
     public void setUp() {
-        server = new Player("server");
-        receiver = new Player("receiver");
+        server = new Player("Server");
+        receiver = new Player("Receiver");
         game = new TennisGame(server, receiver);
     }
 
@@ -33,7 +33,7 @@ class TennisGameTest {
         final var unknownPlayer = new Player("unknown");
 
         // Then
-        assertThatIllegalArgumentException().isThrownBy(() -> game.wonPoint(unknownPlayer));
+        assertThatIllegalArgumentException().isThrownBy(() -> game.wonGamePoint(unknownPlayer));
     }
 
     @Test
@@ -42,37 +42,78 @@ class TennisGameTest {
         final var prettyScore = game.toPrettyScore();
 
         // Then
-        assertThat(prettyScore).isNotBlank().isEqualTo("Player A : 0 / Player B : 0");
+        final var expectedScore = toExpectedScore("0", "0");
+        assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
+        assertThereIsNoWinner();
     }
 
     @Test
-    void shouldBeServerFifteenReceiverZeroWhenServerWinFirstPoint() {
+    void shouldBeServerFifteenReceiverZeroWhenServerWinFirstGamePoint() {
         // Given
-        setWonPoints(1, 0);
+        setGamePoints(1, 0);
         // When
         final var prettyScore = game.toPrettyScore();
 
         // Then
-        assertThat(prettyScore).isNotBlank().isEqualTo("Player A : 15 / Player B : 0");
+        final var expectedScore = toExpectedScore("15", "0");
+        assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
+        assertThereIsNoWinner();
     }
 
     @Test
-    void shouldBeServerZeroReceiverFifteenWhenReceiverWinFirstPoint() {
+    void shouldBeServerZeroReceiverFifteenWhenReceiverWinFirstGamePoint() {
         // Given
-        setWonPoints(0, 1);
+        setGamePoints(0, 1);
         // When
         final var prettyScore = game.toPrettyScore();
 
         // Then
-        assertThat(prettyScore).isNotBlank().isEqualTo("Player A : 0 / Player B : 15");
+        final var expectedScore = toExpectedScore("0", "15");
+        assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
+        assertThereIsNoWinner();
     }
 
-    private void setWonPoints(final int serverPoints, final int receiverPoints) {
-        for (var i = 0; i < serverPoints; i++) {
-            game.wonPoint(server);
+    @Test
+    void shouldBeServerFifteenReceiverFifteenWhenServerWin1PointAndReceiverWin1Point() {
+        // Given
+        setGamePoints(1, 1);
+        // When
+        final var prettyScore = game.toPrettyScore();
+
+        // Then
+        final var expectedScore = toExpectedScore("15", "15");
+        assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
+        assertThereIsNoWinner();
+    }
+
+    @Test
+    void shouldBeServerFifteenReceiverFortyWhenServerWin1PointAndReceiverWin3Point() {
+        // Given
+        setGamePoints(1, 3);
+        // When
+        final var prettyScore = game.toPrettyScore();
+
+        // Then
+        final var expectedScore = toExpectedScore("15", "40");
+        assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
+        assertThereIsNoWinner();
+    }
+
+    private void assertThereIsNoWinner() {
+        assertThat(game.hasWinner()).isFalse();
+        assertThat(game.getWinner()).isNull();
+    }
+
+    private void setGamePoints(final int serverGamePoints, final int receiverGamePoints) {
+        for (var i = 0; i < serverGamePoints; i++) {
+            game.wonGamePoint(server);
         }
-        for (var i = 0; i < receiverPoints; i++) {
-            game.wonPoint(receiver);
+        for (var i = 0; i < receiverGamePoints; i++) {
+            game.wonGamePoint(receiver);
         }
+    }
+
+    private String toExpectedScore(final String serverPrettyGamePoints, final String receiverPrettyGamePoints) {
+        return server + " : " + serverPrettyGamePoints + " / " + receiver + " : " + receiverPrettyGamePoints;
     }
 }
