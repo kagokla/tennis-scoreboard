@@ -139,6 +139,32 @@ class TennisGameTest {
     }
 
     @Test
+    void shouldBeServerAdvantageWhenServerWin5PointsAndReceiverWin4Points() {
+        // Given
+        setGamePoints(5, 4);
+        // When
+        final var prettyScore = game.toPrettyScore();
+
+        // Then
+        final var expectedScore = toAdvantageScore(server);
+        assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
+        assertThereIsNoWinner();
+    }
+
+    @Test
+    void shouldBeReceiverAdvantageWhenReceiverWin6PointsAndServerWin5Points() {
+        // Given
+        setGamePoints(5, 6);
+        // When
+        final var prettyScore = game.toPrettyScore();
+
+        // Then
+        final var expectedScore = toAdvantageScore(receiver);
+        assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
+        assertThereIsNoWinner();
+    }
+
+    @Test
     void simulateGameWithoutDeuceNorAdvantage() {
         game.wonGamePoint(server);
         assertThat(game.toPrettyScore()).isNotBlank().isEqualTo(toExpectedScore("15", "0"));
@@ -189,5 +215,9 @@ class TennisGameTest {
 
     private String toDeuceScore() {
         return "Deuce";
+    }
+
+    private String toAdvantageScore(final Player player) {
+        return player + " Advantage";
     }
 }
