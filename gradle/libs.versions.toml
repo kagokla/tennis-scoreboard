@@ -3,6 +3,7 @@ assertj = "3.25.3"
 commons-collections4 = "4.4"
 commons-lang3 = "3.14.0"
 junit = "5.10.2"
+logback = "1.5.3"
 lombok = "8.6"
 
 [libraries]
@@ -10,6 +11,7 @@ apache-commons-collections4 = { module = "org.apache.commons:commons-collections
 apache-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 [bundles]
 apache-common-helpers = [
