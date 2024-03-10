@@ -23,7 +23,10 @@ public class TennisGame implements SportsGame {
         if (isDraw()) {
             return "Deuce";
         }
-        return toPrettyPoint(firstPlayer, firstPlayerPoints) + " / " + toPrettyPoint(secondPlayer, secondPlayerPoints);
+        if (hasAdvantage()) {
+            return toPrettyPoint(leadingPlayer());
+        }
+        return toPrettyPoint(firstPlayer) + " / " + toPrettyPoint(secondPlayer);
     }
 
     @Override
@@ -34,10 +37,6 @@ public class TennisGame implements SportsGame {
     @Override
     public boolean hasWinner() {
         return (firstPlayerPoints >= 4 && firstPlayerPoints - secondPlayerPoints >= 2) || (secondPlayerPoints >= 4 && secondPlayerPoints - firstPlayerPoints >= 2);
-    }
-
-    private void saveWinner() {
-        winner = firstPlayerPoints > secondPlayerPoints ? firstPlayer : secondPlayer;
     }
 
     @Override
@@ -51,7 +50,22 @@ public class TennisGame implements SportsGame {
         }
     }
 
-    private String toPrettyPoint(final Player player, final int playerPoints) {
-        return player + " : " + TennisPoint.fromGamePoint(playerPoints);
+    private boolean hasAdvantage() {
+        return (firstPlayerPoints >= 4 && firstPlayerPoints == secondPlayerPoints + 1) || (secondPlayerPoints >= 4 && secondPlayerPoints == firstPlayerPoints + 1);
+    }
+
+    private void saveWinner() {
+        winner = firstPlayerPoints > secondPlayerPoints ? firstPlayer : secondPlayer;
+    }
+
+    private Player leadingPlayer() {
+        return firstPlayerPoints > secondPlayerPoints ? firstPlayer : secondPlayer;
+    }
+
+    private String toPrettyPoint(final Player player) {
+        if (player.equals(firstPlayer)) {
+            return player + " : " + TennisPoint.fromGamePoint(firstPlayerPoints);
+        }
+        return player + " : " + TennisPoint.fromGamePoint(secondPlayerPoints);
     }
 }
