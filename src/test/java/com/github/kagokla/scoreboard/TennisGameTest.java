@@ -87,7 +87,7 @@ class TennisGameTest {
     }
 
     @Test
-    void shouldBeServerFifteenReceiverFortyWhenServerWin1PointAndReceiverWin3Point() {
+    void shouldBeServerFifteenReceiverFortyWhenServerWin1PointAndReceiverWin3Points() {
         // Given
         setGamePoints(1, 3);
         // When
@@ -97,6 +97,24 @@ class TennisGameTest {
         final var expectedScore = toExpectedScore("15", "40");
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
         assertThereIsNoWinner();
+    }
+
+    @Test
+    void shouldBeReceiverVictoryWhenReceiverWin4Points() {
+        // Given
+        setGamePoints(1, 4);
+        // When
+        final var prettyScore = game.toPrettyScore();
+
+        // Then
+        final var expectedScore = toWinnerScore(receiver);
+        assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
+        assertThereIsWinner();
+    }
+
+    private void assertThereIsWinner() {
+        assertThat(game.hasWinner()).isTrue();
+        assertThat(game.getWinner()).isNotNull();
     }
 
     private void assertThereIsNoWinner() {
@@ -115,5 +133,9 @@ class TennisGameTest {
 
     private String toExpectedScore(final String serverPrettyGamePoints, final String receiverPrettyGamePoints) {
         return server + " : " + serverPrettyGamePoints + " / " + receiver + " : " + receiverPrettyGamePoints;
+    }
+
+    private String toWinnerScore(final Player player) {
+        return player + " wins the game";
     }
 }
