@@ -1,24 +1,20 @@
 package com.github.kagokla.scoreboard;
 
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Getter
 @RequiredArgsConstructor
 public class TennisGame implements SportsGame {
 
     private final Player firstPlayer;
     private final Player secondPlayer;
-    private Player winner = null;
     private int firstPlayerPoints = 0;
     private int secondPlayerPoints = 0;
 
     @Override
     public String toPrettyScore() {
         if (hasWinner()) {
-            saveWinner();
-            return winner + " wins the game";
+            return getLeader() + " wins the game";
         }
         if (isDeuceOrAdvantage()) {
             if (firstPlayerPoints == secondPlayerPoints) {
@@ -52,10 +48,6 @@ public class TennisGame implements SportsGame {
 
     public boolean isDeuceOrAdvantage() {
         return firstPlayerPoints >= 3 && secondPlayerPoints >= 3;
-    }
-
-    private void saveWinner() {
-        winner = firstPlayerPoints > secondPlayerPoints ? firstPlayer : secondPlayer;
     }
 
     private String toPrettyPoint(final Player player) {

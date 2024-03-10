@@ -1,10 +1,7 @@
 package com.github.kagokla.scoreboard;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 
-@Getter
 public enum TennisPoint {
 
     ZERO(0, "0"),

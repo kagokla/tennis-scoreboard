@@ -6,8 +6,6 @@ public interface SportsGame {
 
     boolean hasWinner();
 
-    Player getWinner();
-
     Player getLeader();
 
     void wonGamePoint(Player player);
