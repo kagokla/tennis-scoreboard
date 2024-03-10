@@ -15,13 +15,23 @@ compileJava {
     options.release = 21
 }
 
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes "Main-Class": "com.github.kagokla.scoreboard.Main"
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 dependencies {
-    // Apache commons
     implementation(libs.bundles.apache.common.helpers)
+    implementation(libs.logback)
 
     // TEST
-    testImplementation(libs.junit)
     testImplementation(libs.assertj.core)
+    testImplementation(libs.junit)
 }
 
 test {
@@ -33,4 +43,10 @@ test {
 
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: "com/github/kagokla/**/Main.class")
+        }))
+    }
 }
