@@ -53,3 +53,8 @@ For example the following input “ABABAA” should print :
 ```
 java -jar build/libs/tennis-scoreboard-1.0.0-SNAPSHOT.jar
 ```
+
+## And now ?
+
+- Handle the full scoring of a match including the sets
+- Add the scoring rules of other sports like badminton or table tennis (ping-pong)
