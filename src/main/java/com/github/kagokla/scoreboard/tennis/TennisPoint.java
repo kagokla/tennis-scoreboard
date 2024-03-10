@@ -2,6 +2,9 @@ package com.github.kagokla.scoreboard.tennis;
 
 import java.util.Arrays;
 
+/**
+ * Handling of the conversion between the points of the tennis game and their beautiful representation
+ */
 public enum TennisPoint {
     ZERO(0, "0"),
     FIFTEEN(1, "15"),

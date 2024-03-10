@@ -41,3 +41,15 @@ For example the following input “ABABAA” should print :
 
 - Adoptium Temurin 21: https://adoptium.net/
 - Gradle 8.6+: https://gradle.org/install/
+
+## How to build locally
+
+```
+./gradlew clean build
+```
+
+## Usage
+
+```
+java -jar build/libs/tennis-scoreboard-1.0.0-SNAPSHOT.jar
+```

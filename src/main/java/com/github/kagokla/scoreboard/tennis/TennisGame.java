@@ -4,6 +4,9 @@ import com.github.kagokla.scoreboard.Player;
 import com.github.kagokla.scoreboard.SportsGame;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Score calculation rules for tennis games
+ */
 @RequiredArgsConstructor
 public class TennisGame implements SportsGame {
 
