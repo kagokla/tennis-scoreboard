@@ -24,7 +24,7 @@ public class TennisGame implements SportsGame {
     }
 
     @Override
-    public boolean isDeuce() {
+    public boolean isDraw() {
         return firstPlayerPoints >= 3 && firstPlayerPoints == secondPlayerPoints;
     }
 

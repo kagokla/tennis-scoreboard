@@ -4,7 +4,7 @@ public interface SportsGame {
 
     String toPrettyScore();
 
-    boolean isDeuce();
+    boolean isDraw();
 
     boolean hasWinner();
 
