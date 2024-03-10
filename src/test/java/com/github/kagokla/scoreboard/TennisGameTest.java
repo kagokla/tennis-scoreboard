@@ -218,6 +218,6 @@ class TennisGameTest {
     }
 
     private String toAdvantageScore(final Player player) {
-        return player + ": Advantage";
+        return player + " : Advantage";
     }
 }

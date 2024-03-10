@@ -4,11 +4,11 @@ public interface SportsGame {
 
     String toPrettyScore();
 
-    boolean isDraw();
-
     boolean hasWinner();
 
     Player getWinner();
+
+    Player getLeader();
 
     void wonGamePoint(Player player);
 }

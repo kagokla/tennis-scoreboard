@@ -20,23 +20,23 @@ public class TennisGame implements SportsGame {
             saveWinner();
             return winner + " wins the game";
         }
-        if (isDraw()) {
-            return "Deuce";
-        }
-        if (hasAdvantage()) {
-            return toPrettyPoint(leadingPlayer());
+        if (isDeuceOrAdvantage()) {
+            if (firstPlayerPoints == secondPlayerPoints) {
+                return "Deuce";
+            }
+            return toPrettyPoint(getLeader());
         }
         return toPrettyPoint(firstPlayer) + " / " + toPrettyPoint(secondPlayer);
     }
 
     @Override
-    public boolean isDraw() {
-        return firstPlayerPoints >= 3 && firstPlayerPoints == secondPlayerPoints;
+    public boolean hasWinner() {
+        return (firstPlayerPoints >= 4 && firstPlayerPoints - secondPlayerPoints >= 2) || (secondPlayerPoints >= 4 && secondPlayerPoints - firstPlayerPoints >= 2);
     }
 
     @Override
-    public boolean hasWinner() {
-        return (firstPlayerPoints >= 4 && firstPlayerPoints - secondPlayerPoints >= 2) || (secondPlayerPoints >= 4 && secondPlayerPoints - firstPlayerPoints >= 2);
+    public Player getLeader() {
+        return firstPlayerPoints > secondPlayerPoints ? firstPlayer : secondPlayer;
     }
 
     @Override
@@ -50,20 +50,16 @@ public class TennisGame implements SportsGame {
         }
     }
 
-    private boolean hasAdvantage() {
-        return (firstPlayerPoints >= 4 && firstPlayerPoints == secondPlayerPoints + 1) || (secondPlayerPoints >= 4 && secondPlayerPoints == firstPlayerPoints + 1);
+    public boolean isDeuceOrAdvantage() {
+        return firstPlayerPoints >= 3 && secondPlayerPoints >= 3;
     }
 
     private void saveWinner() {
         winner = firstPlayerPoints > secondPlayerPoints ? firstPlayer : secondPlayer;
     }
 
-    private Player leadingPlayer() {
-        return firstPlayerPoints > secondPlayerPoints ? firstPlayer : secondPlayer;
-    }
-
     private String toPrettyPoint(final Player player) {
-        if (player.equals(firstPlayer)) {
+        if (firstPlayer.equals(player)) {
             return player + " : " + TennisPoint.fromGamePoint(firstPlayerPoints);
         }
         return player + " : " + TennisPoint.fromGamePoint(secondPlayerPoints);
