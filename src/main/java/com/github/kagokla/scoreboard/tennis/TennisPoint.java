@@ -3,7 +3,6 @@ package com.github.kagokla.scoreboard.tennis;
 import java.util.Arrays;
 
 public enum TennisPoint {
-
     ZERO(0, "0"),
     FIFTEEN(1, "15"),
     THIRTY(2, "30"),

@@ -2,7 +2,6 @@ package com.github.kagokla.scoreboard.tennis;
 
 import com.github.kagokla.scoreboard.Player;
 import com.github.kagokla.scoreboard.SportsGame;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -29,7 +28,8 @@ public class TennisGame implements SportsGame {
 
     @Override
     public boolean hasWinner() {
-        return (firstPlayerPoints >= 4 && firstPlayerPoints - secondPlayerPoints >= 2) || (secondPlayerPoints >= 4 && secondPlayerPoints - firstPlayerPoints >= 2);
+        return (firstPlayerPoints >= 4 && firstPlayerPoints - secondPlayerPoints >= 2)
+                || (secondPlayerPoints >= 4 && secondPlayerPoints - firstPlayerPoints >= 2);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class TennisGame implements SportsGame {
     }
 
     @Override
-    public void wonGamePoint(@NonNull final Player player) {
+    public void wonGamePoint(final Player player) {
         if (firstPlayer.equals(player)) {
             firstPlayerPoints++;
         } else if (secondPlayer.equals(player)) {
