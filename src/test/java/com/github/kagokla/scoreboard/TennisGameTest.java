@@ -112,6 +112,54 @@ class TennisGameTest {
         assertThereIsWinner();
     }
 
+    @Test
+    void shouldBeServerVictoryWhenServerWin4Points() {
+        // Given
+        setGamePoints(4, 0);
+        // When
+        final var prettyScore = game.toPrettyScore();
+
+        // Then
+        final var expectedScore = toWinnerScore(server);
+        assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
+        assertThereIsWinner();
+    }
+
+    @Test
+    void shouldBeDeuceWhenServerWin4PointsAndReceiverWin4Points() {
+        // Given
+        setGamePoints(4, 4);
+        // When
+        final var prettyScore = game.toPrettyScore();
+
+        // Then
+        final var expectedScore = toDeuceScore();
+        assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
+        assertThereIsWinner();
+    }
+
+    @Test
+    void simulateGameWithoutDeuceNorAdvantage() {
+        game.wonGamePoint(server);
+        assertThat(game.toPrettyScore()).isNotBlank().isEqualTo(toExpectedScore("15", "0"));
+
+        game.wonGamePoint(receiver);
+        assertThat(game.toPrettyScore()).isNotBlank().isEqualTo(toExpectedScore("15", "15"));
+
+        game.wonGamePoint(server);
+        assertThat(game.toPrettyScore()).isNotBlank().isEqualTo(toExpectedScore("30", "15"));
+
+        game.wonGamePoint(receiver);
+        assertThat(game.toPrettyScore()).isNotBlank().isEqualTo(toExpectedScore("30", "30"));
+
+        game.wonGamePoint(server);
+        assertThat(game.toPrettyScore()).isNotBlank().isEqualTo(toExpectedScore("40", "30"));
+
+        game.wonGamePoint(server);
+        assertThat(game.toPrettyScore()).isNotBlank().isEqualTo(toWinnerScore(server));
+        assertThereIsWinner();
+    }
+
     private void assertThereIsWinner() {
         assertThat(game.hasWinner()).isTrue();
         assertThat(game.getWinner()).isNotNull();
@@ -137,5 +185,9 @@ class TennisGameTest {
 
     private String toWinnerScore(final Player player) {
         return player + " wins the game";
+    }
+
+    private String toDeuceScore() {
+        return "Deuce";
     }
 }
