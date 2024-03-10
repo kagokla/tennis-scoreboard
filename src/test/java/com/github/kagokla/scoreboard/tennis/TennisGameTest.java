@@ -1,5 +1,6 @@
-package com.github.kagokla.scoreboard;
+package com.github.kagokla.scoreboard.tennis;
 
+import com.github.kagokla.scoreboard.Player;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

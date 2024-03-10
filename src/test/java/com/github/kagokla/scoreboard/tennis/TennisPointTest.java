@@ -1,4 +1,4 @@
-package com.github.kagokla.scoreboard;
+package com.github.kagokla.scoreboard.tennis;
 
 import org.junit.jupiter.api.Test;
 

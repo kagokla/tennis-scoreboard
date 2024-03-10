@@ -14,7 +14,6 @@ class PlayerTest {
         assertThat(player).isNotNull();
     }
 
-
     @Test
     void shouldFailWhenNameMissing() {
         assertThatNullPointerException().isThrownBy(() -> new Player(null));
