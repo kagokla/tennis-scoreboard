@@ -20,6 +20,9 @@ public class TennisGame implements SportsGame {
             saveWinner();
             return winner + " wins the game";
         }
+        if (isDraw()) {
+            return "Deuce";
+        }
         return toPrettyPoint(firstPlayer, firstPlayerPoints) + " / " + toPrettyPoint(secondPlayer, secondPlayerPoints);
     }
 

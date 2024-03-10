@@ -135,7 +135,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toDeuceScore();
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThereIsWinner();
+        assertThereIsNoWinner();
     }
 
     @Test
