@@ -1,5 +1,7 @@
-package com.github.kagokla.scoreboard;
+package com.github.kagokla.scoreboard.tennis;
 
+import com.github.kagokla.scoreboard.Player;
+import com.github.kagokla.scoreboard.SportsGame;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
