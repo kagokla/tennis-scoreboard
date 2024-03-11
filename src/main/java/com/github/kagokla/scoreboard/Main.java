@@ -21,7 +21,7 @@ public class Main {
                  ___) | (_| (_) | | |  __/ |_) | (_) | (_| | | | (_| |
                 |____/ \\___\\___/|_|  \\___|_.__/ \\___/ \\__,_|_|  \\__,_|
                 """;
-        System.out.println(banner);
+        printMsg(banner);
 
         final var scan = new Scanner(System.in);
         final Predicate<String> validInputPredicate = StringUtils::isNotBlank;
@@ -45,10 +45,10 @@ public class Main {
                     .map(Player::new)
                     .orElseThrow(() -> new IllegalArgumentException(INVALID_INPUT));
             game.wonGamePoint(scorer);
-            System.out.println(game.toPrettyScore());
+            printMsg(game.toPrettyScore());
         } while (!game.hasWinner());
 
-        System.out.println("Goodbye!");
+        printMsg("Goodbye!");
     }
 
     private static Optional<String> getValidInput(
@@ -57,13 +57,17 @@ public class Main {
             final String promptMsg,
             final String invalidInputMsg) {
         for (var i = 0; i < 10; i++) {
-            System.out.println(promptMsg);
+            printMsg(promptMsg);
             final var input = scan.nextLine();
             if (predicate.test(input)) {
                 return Optional.of(input);
             }
-            System.out.println(invalidInputMsg);
+            printMsg(invalidInputMsg);
         }
         return Optional.empty();
+    }
+
+    private static void printMsg(final String message) {
+        System.out.println(message);
     }
 }
