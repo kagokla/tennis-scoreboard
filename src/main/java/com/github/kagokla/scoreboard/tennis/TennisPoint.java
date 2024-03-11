@@ -1,10 +1,16 @@
 package com.github.kagokla.scoreboard.tennis;
 
+import lombok.Getter;
+
 import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Handling of the conversion between the points of the tennis game and their beautiful representation
  */
+@Getter
 public enum TennisPoint {
     ZERO(0, "0"),
     FIFTEEN(1, "15"),
@@ -12,6 +18,8 @@ public enum TennisPoint {
     FORTY(3, "40"),
     ADVANTAGE(4, "Advantage");
 
+    private static final Map<Integer, TennisPoint> gamePointLookup = Arrays.stream(values())
+            .collect(Collectors.toUnmodifiableMap(TennisPoint::getGamePoint, Function.identity()));
     private final int gamePoint;
     private final String prettyGamePoint;
 
@@ -24,14 +32,11 @@ public enum TennisPoint {
         if (gamePoint < 0) {
             throw new IllegalArgumentException("Negative value can not be scored when playing Tennis");
         }
-        return Arrays.stream(values())
-                .filter(tennisPoint -> tennisPoint.gamePoint == gamePoint)
-                .findFirst()
-                .orElse(ADVANTAGE);
+        return gamePointLookup.getOrDefault(gamePoint, TennisPoint.ADVANTAGE);
     }
 
     @Override
     public String toString() {
-        return prettyGamePoint;
+        return getPrettyGamePoint();
     }
 }
