@@ -56,7 +56,9 @@ public class Main {
             final Predicate<String> predicate,
             final String promptMsg,
             final String invalidInputMsg) {
-        for (var i = 0; i < 10; i++) {
+
+        final var maxInvalidInputs = 10;
+        for (var i = 0; i < maxInvalidInputs; i++) {
             printMsg(promptMsg);
             final var input = scan.nextLine();
             if (predicate.test(input)) {
