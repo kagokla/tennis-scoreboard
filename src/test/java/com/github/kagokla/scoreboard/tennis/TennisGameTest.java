@@ -127,9 +127,9 @@ class TennisGameTest {
     }
 
     @Test
-    void shouldBeDeuceWhenServerWin4PointsAndReceiverWin4Points() {
+    void shouldBeDeuceWhenServerWin3PointsAndReceiverWin3Points() {
         // Given
-        setGamePoints(4, 4);
+        setGamePoints(3, 3);
         // When
         final var prettyScore = game.toPrettyScore();
 
