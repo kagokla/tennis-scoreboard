@@ -5,6 +5,8 @@ commons-lang3 = "3.14.0"
 junit = "5.10.2"
 logback = "1.5.3"
 lombok = "8.6"
+pitest = "1.15.0"
+pitest-junit5 = "1.2.0"
 
 [libraries]
 apache-commons-collections4 = { module = "org.apache.commons:commons-collections4", version.ref = "commons-collections4" }
@@ -21,3 +23,4 @@ apache-common-helpers = [
 
 [plugins]
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
+pitest = { id = "info.solidsoft.pitest", version.ref = "pitest" }

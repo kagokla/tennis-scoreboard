@@ -2,6 +2,7 @@ plugins {
     id 'jacoco'
     id 'java'
     alias(libs.plugins.lombok)
+    alias(libs.plugins.pitest)
 }
 
 group = 'com.github.kagokla'
@@ -39,6 +40,10 @@ test {
     testLogging {
         events 'FAILED', 'SKIPPED', 'PASSED'
     }
+}
+
+pitest {
+    junit5PluginVersion = libs.versions.pitest.junit5
 }
 
 jacocoTestReport {
