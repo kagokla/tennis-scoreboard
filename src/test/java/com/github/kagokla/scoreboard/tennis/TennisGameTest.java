@@ -45,7 +45,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toExpectedScore("0", "0");
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isFalse();
+        assertThereIsNoWinnerAndLeaderIs(server);
     }
 
     @Test
@@ -58,7 +58,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toExpectedScore("15", "0");
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isFalse();
+        assertThereIsNoWinnerAndLeaderIs(server);
     }
 
     @Test
@@ -71,7 +71,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toExpectedScore("0", "15");
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isFalse();
+        assertThereIsNoWinnerAndLeaderIs(receiver);
     }
 
     @Test
@@ -84,7 +84,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toExpectedScore("15", "15");
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isFalse();
+        assertThereIsNoWinnerAndLeaderIs(server);
     }
 
     @Test
@@ -97,7 +97,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toExpectedScore("15", "40");
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isFalse();
+        assertThereIsNoWinnerAndLeaderIs(receiver);
     }
 
     @Test
@@ -110,7 +110,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toWinnerScore(receiver);
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isTrue();
+        assertThereIsWinner(receiver);
     }
 
     @Test
@@ -123,7 +123,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toWinnerScore(server);
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isTrue();
+        assertThereIsWinner(server);
     }
 
     @Test
@@ -136,7 +136,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toDeuceScore();
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isFalse();
+        assertThereIsNoWinnerAndLeaderIs(server);
     }
 
     @Test
@@ -149,7 +149,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toAdvantageScore(server);
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isFalse();
+        assertThereIsNoWinnerAndLeaderIs(server);
     }
 
     @Test
@@ -162,7 +162,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toAdvantageScore(receiver);
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isFalse();
+        assertThereIsNoWinnerAndLeaderIs(receiver);
     }
 
     @Test
@@ -176,7 +176,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toWinnerScore(server);
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isTrue();
+        assertThereIsWinner(server);
     }
 
     @Test
@@ -190,7 +190,7 @@ class TennisGameTest {
         // Then
         final var expectedScore = toWinnerScore(receiver);
         assertThat(prettyScore).isNotBlank().isEqualTo(expectedScore);
-        assertThat(game.hasWinner()).isTrue();
+        assertThereIsWinner(receiver);
     }
 
     @Test
@@ -212,7 +212,7 @@ class TennisGameTest {
 
         game.wonGamePoint(server);
         assertThat(game.toPrettyScore()).isNotBlank().isEqualTo(toWinnerScore(server));
-        assertThat(game.hasWinner()).isTrue();
+        assertThereIsWinner(server);
     }
 
     private void setGamePoints(final int serverGamePoints, final int receiverGamePoints) {
@@ -238,5 +238,15 @@ class TennisGameTest {
 
     private String toAdvantageScore(final Player player) {
         return player + " : Advantage";
+    }
+
+    private void assertThereIsWinner(final Player winner) {
+        assertThat(game.hasWinner()).isTrue();
+        assertThat(game.getLeader()).isEqualTo(winner);
+    }
+
+    private void assertThereIsNoWinnerAndLeaderIs(final Player leader) {
+        assertThat(game.hasWinner()).isFalse();
+        assertThat(game.getLeader()).isEqualTo(leader);
     }
 }

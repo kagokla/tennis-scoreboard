@@ -31,13 +31,14 @@ public class TennisGame implements SportsGame {
 
     @Override
     public boolean hasWinner() {
-        return (firstPlayerPoints >= 4 && firstPlayerPoints - secondPlayerPoints >= 2)
-                || (secondPlayerPoints >= 4 && secondPlayerPoints - firstPlayerPoints >= 2);
+        return (firstPlayerPoints >= 4 || secondPlayerPoints >= 4)
+                && (Math.abs(firstPlayerPoints - secondPlayerPoints) >= 2);
     }
 
     @Override
     public Player getLeader() {
-        return firstPlayerPoints > secondPlayerPoints ? firstPlayer : secondPlayer;
+        // Assuming there is a tie on points, leader is the first player
+        return firstPlayerPoints >= secondPlayerPoints ? firstPlayer : secondPlayer;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class TennisGame implements SportsGame {
         }
     }
 
-    public boolean isDeuceOrAdvantage() {
+    private boolean isDeuceOrAdvantage() {
         return firstPlayerPoints >= 3 && secondPlayerPoints >= 3;
     }
 
