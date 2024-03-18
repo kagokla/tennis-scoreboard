@@ -3,6 +3,7 @@ package com.github.kagokla.scoreboard;
 import com.github.kagokla.scoreboard.tennis.TennisGame;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -24,22 +25,25 @@ public class Main {
         printMsg(banner);
 
         final var scan = new Scanner(System.in);
-        final Predicate<String> validInputPredicate = StringUtils::isNotBlank;
 
-        final var firstPlayer = getValidInput(
-                        scan, validInputPredicate, "Enter the name of the 1st player: ", MANDATORY_NAME)
+        final Predicate<String> notBlankInput = StringUtils::isNotBlank;
+
+        final var firstPlayer = getValidInput(scan, notBlankInput, "Enter the name of the 1st player: ", MANDATORY_NAME)
                 .map(Player::new)
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_INPUT));
         final var secondPlayer = getValidInput(
-                        scan, validInputPredicate, "Enter the name of the 2nd player: ", MANDATORY_NAME)
+                        scan, notBlankInput, "Enter the name of the 2nd player: ", MANDATORY_NAME)
                 .map(Player::new)
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_INPUT));
+
+        final Predicate<String> allowedPlayerInput = input -> StringUtils.isNotBlank(input)
+                && List.of(firstPlayer, secondPlayer).contains(new Player(input));
 
         final var game = new TennisGame(firstPlayer, secondPlayer);
         do {
             final var scorer = getValidInput(
                             scan,
-                            validInputPredicate,
+                            allowedPlayerInput,
                             "Which player won the point? ",
                             "Please choose between " + firstPlayer + " and " + secondPlayer)
                     .map(Player::new)
