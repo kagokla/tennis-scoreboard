@@ -1,7 +1,5 @@
 package com.github.kagokla.scoreboard.tennis;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
@@ -10,7 +8,6 @@ import java.util.stream.Collectors;
 /**
  * Handling of the conversion between the points of the tennis game and their beautiful representation
  */
-@Getter
 public enum TennisPoint {
     ZERO(0, "0"),
     FIFTEEN(1, "15"),
@@ -19,7 +16,7 @@ public enum TennisPoint {
     ADVANTAGE(4, "Advantage");
 
     private static final Map<Integer, TennisPoint> gamePointLookup = Arrays.stream(values())
-            .collect(Collectors.toUnmodifiableMap(TennisPoint::getGamePoint, Function.identity()));
+            .collect(Collectors.toUnmodifiableMap(tennisPoint -> tennisPoint.gamePoint, Function.identity()));
     private final int gamePoint;
     private final String prettyGamePoint;
 
@@ -37,6 +34,6 @@ public enum TennisPoint {
 
     @Override
     public String toString() {
-        return getPrettyGamePoint();
+        return prettyGamePoint;
     }
 }
